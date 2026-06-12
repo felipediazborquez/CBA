@@ -9,58 +9,58 @@ const scoreBg    = v => v>=4.5?"#fdecea":v>=3.5?"#fff3e0":v>=2.5?"#fffde7":"#e9f
 const W = {clima:0.4,enso:0.2,combustible:0.2,logistica:0.2};
 
 const PRODUCTOS_RAW = [
-  {cat:"Cereales",prod:"Pan corriente a granel",gasto:10239,cal:666,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["CR2","INIA","ODEPA"],nota:"Producto de mayor peso calórico y de gasto en canasta. ARClim: zona centro-sur bajo estrés hídrico severo (megasequía Atacama-Maule 2010–2023)."},
-  {cat:"Cereales",prod:"Harina de trigo blanca",gasto:628,cal:79,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["CR2","INIA","ODEPA","ARClim"],nota:"CR2: megasequía 2010–2023 redujo producción local. INIA alerta heladas tardías (Ñuble, Bio-Bio). Importación creciente desde Argentina."},
-  {cat:"Cereales",prod:"Arroz",gasto:1061,cal:115,clima:5,enso:4,combustible:3,logistica:4,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["CR2","INIA","NOAA"],nota:"NOAA 11-jun-2026: Niño 1+2 costero +2,1°C. Importado 98% desde Perú/Ecuador (zonas ENSO sensibles)."},
-  {cat:"Cereales",prod:"Espaguetis",gasto:462,cal:28,clima:5,enso:4,combustible:3,logistica:3,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["CR2","ODEPA"],nota:"Derivado directo de trigo. ARClim/CR2: migraciones de producción a sur. Sequía Maule afecta cultivos."},
-  {cat:"Cereales",prod:"Otras pastas secas",gasto:528,cal:24,clima:5,enso:4,combustible:3,logistica:3,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["CR2","ODEPA"],nota:"Derivado de trigo. Riesgo climático heredado de cereal base. Cadena de distribución nacional."},
-  {cat:"Cereales",prod:"Pan especial a granel",gasto:618,cal:22,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["CR2","INIA"],nota:"Misma cadena de riesgo que pan corriente. Requiere energía (horneado) y distribución."},
-  {cat:"Cereales",prod:"Pan envasado",gasto:408,cal:11,clima:5,enso:3,combustible:5,logistica:4,pesoCBA:2,ya:true,evidencia:"media",fuentes:["CR2","ODEPA"],nota:"Derivado industrial de trigo. Distribución con cadena de frío moderada."},
-  {cat:"Cereales",prod:"Galletas no identificadas",gasto:391,cal:9,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado cereal; riesgo moderado. Producción industrial con aditivos."},
-  {cat:"Cereales",prod:"Cereales para el desayuno",gasto:263,cal:6,clima:3,enso:3,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["INIA","NOAA"],nota:"Derivado de maíz/trigo/avena. ENSO afecta maíz en zonas norte-centro."},
-  {cat:"Cereales",prod:"Galletas dulces con relleno",gasto:328,cal:9,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de trigo y azúcar."},
-  {cat:"Cereales",prod:"Snacks, chips y frituras de cereal",gasto:225,cal:5,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de maíz/trigo. Procesado industrial."},
-  {cat:"Carnes",prod:"Trutro de pollo",gasto:2045,cal:28,clima:3,enso:2,combustible:3,logistica:4,pesoCBA:4,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"Mayor peso calórico del grupo avícola. INIA: riesgo indirecto vía maíz forrajero."},
-  {cat:"Carnes",prod:"Carne vacuno molida",gasto:1803,cal:9,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","INIA","ODEPA"],nota:"ARClim: amenaza al pastoreo y forrajes en La Araucanía, Ñuble. CR2: estrés hídrico severo."},
-  {cat:"Carnes",prod:"Otros cortes vacuno",gasto:1758,cal:14,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","ODEPA"],nota:"ARClim: ganadería extensiva en alto riesgo. Sequía reduce disponibilidad de pastos."},
-  {cat:"Carnes",prod:"Pechuga de pollo",gasto:1407,cal:11,clima:3,enso:2,combustible:3,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo indirecto vía maíz forrajero. Cadena de frío nacional."},
-  {cat:"Carnes",prod:"Carne vacuno posta",gasto:1107,cal:6,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","ODEPA"],nota:"ARClim: amenaza alta. CR2: megasequía histórica en zona de producción."},
-  {cat:"Carnes",prod:"Cecinas fiambres no identificados",gasto:628,cal:7,clima:3,enso:1,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivados procesados de carne. Riesgo indirecto."},
-  {cat:"Carnes",prod:"Carne cerdo chuleta",gasto:759,cal:7,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo indirecto vía maíz forrajero (más resiliente que bovino)."},
-  {cat:"Carnes",prod:"Vienesas tradicionales",gasto:267,cal:9,clima:3,enso:1,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Producto procesado; riesgo climático indirecto."},
-  {cat:"Pesca",prod:"Jurel en conserva",gasto:261,cal:5,clima:5,enso:5,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ARClim","IFOP","NOAA"],nota:"IFOP 2026: El Niño activo impacta stocks costeros. NOAA: anomalía +2,1°C en zona 1+2."},
-  {cat:"Pesca",prod:"Atún en conserva",gasto:591,cal:4,clima:4,enso:4,combustible:5,logistica:5,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ARClim","IFOP","NOAA"],nota:"NOAA 11-jun: Niño 1+2 costero +2,1°C. 100% importado desde aguas ecuatoriales."},
-  {cat:"Lácteos y huevos",prod:"Huevos de gallina frescos",gasto:2273,cal:31,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:4,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: avicultura en riesgo moderado vía alimentación (maíz)."},
-  {cat:"Lácteos y huevos",prod:"Leche líquida entera",gasto:1031,cal:21,clima:3,enso:4,combustible:5,logistica:5,pesoCBA:3,ya:false,evidencia:"alta",fuentes:["ARClim","INIA","NOAA"],nota:"ARClim CI lechería: riesgo moderado O'Higgins-Bio-Bio por sequía. Cadena de frío crítica."},
-  {cat:"Lácteos y huevos",prod:"Queso gouda",gasto:1446,cal:21,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["ARClim","INIA"],nota:"ARClim CI lechería. Cadena de frío extensa; dependencia de energía."},
-  {cat:"Lácteos y huevos",prod:"Yogur batido",gasto:1106,cal:13,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"Derivado lácteo; hereda riesgo de base productiva."},
-  {cat:"Lácteos y huevos",prod:"Leche en polvo",gasto:614,cal:16,clima:3,enso:3,combustible:5,logistica:5,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: sequía sur afecta producción. Transporte marítimo y procesamiento energointensivo."},
-  {cat:"Grasas y aceites",prod:"Aceites vegetales",gasto:1564,cal:197,clima:5,enso:4,combustible:5,logistica:5,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"NOAA 11-jun: 63% probabilidad El Niño muy intenso. Aceite de palma: importado. Girasol: sequía Maule."},
-  {cat:"Grasas y aceites",prod:"Mantequillas",gasto:693,cal:20,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado lácteo. Cadena de frío crítica."},
-  {cat:"Grasas y aceites",prod:"Margarinas",gasto:407,cal:11,clima:2,enso:2,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de aceites vegetales importados. Riesgo indirecto."},
-  {cat:"Frutas",prod:"Paltas frescas",gasto:1647,cal:19,clima:5,enso:2,combustible:3,logistica:3,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2"],nota:"ARClim CI hídrico: Petorca riesgo muy alto (colapso acuíferos). CR2: sequía persistente."},
-  {cat:"Frutas",prod:"Limones y limas frescos",gasto:633,cal:3,clima:5,enso:4,combustible:2,logistica:2,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"ARClim: zona productora bajo estrés hídrico severo (Valparaíso, La Serena)."},
-  {cat:"Frutas",prod:"Plátanos frescos",gasto:891,cal:14,clima:4,enso:5,combustible:5,logistica:5,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"100% importado. NOAA: Niño 1+2 +2,1°C impacta directamente Ecuador/Perú (productores)."},
-  {cat:"Frutas",prod:"Manzanas frescas",gasto:420,cal:5,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","CR2"],nota:"ARClim CI fruticultura: reducción esperada por estrés hídrico en Los Lagos."},
-  {cat:"Frutas",prod:"Naranjas frescas",gasto:304,cal:4,clima:3,enso:4,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["NOAA","ODEPA"],nota:"NOAA: Niño costero afecta zona productora (Coquimbo)."},
-  {cat:"Verduras",prod:"Papas de guarda",gasto:1200,cal:55,clima:5,enso:5,combustible:5,logistica:4,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ARClim","INIA","ODEPA","NOAA"],nota:"ARClim CI papa: O'Higgins y Maule en riesgo muy alto. INIA: heladas tardías. Peso clave en canasta."},
-  {cat:"Verduras",prod:"Tomates frescos",gasto:890,cal:4,clima:5,enso:4,combustible:3,logistica:2,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"ARClim CI hortalizas: amenaza alta en zonas norte-centro. ENSO afecta temporadas."},
-  {cat:"Verduras",prod:"Cebollas frescas",gasto:420,cal:3,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","ODEPA"],nota:"ARClim: amenaza media O'Higgins-Ñuble."},
-  {cat:"Verduras",prod:"Zanahorias frescas",gasto:350,cal:4,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo moderado Maule."},
-  {cat:"Verduras",prod:"Porotos frescos o secos",gasto:480,cal:12,clima:3,enso:1,combustible:1,logistica:1,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","INIA"],nota:"Leguminosas más resilientes. Riesgo moderado."},
-  {cat:"Verduras",prod:"Lentejas",gasto:420,cal:10,clima:2,enso:1,combustible:2,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Leguminosa importada. Bajo riesgo relativo."},
-  {cat:"Verduras",prod:"Choclo fresco o congelado",gasto:380,cal:8,clima:3,enso:3,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"media",fuentes:["NOAA","ARClim"],nota:"NOAA: El Niño activo afecta maíz. ARClim: amenaza moderada."},
-  {cat:"Azúcar y dulces",prod:"Azúcar blanca o rubia",gasto:520,cal:35,clima:4,enso:4,combustible:3,logistica:3,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: 63% prob. de El Niño muy intenso. Afecta caña/remolacha en zonas productoras."},
-  {cat:"Azúcar y dulces",prod:"Mermeladas y jaleas",gasto:210,cal:5,clima:3,enso:2,combustible:2,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de frutas y azúcar."},
-  {cat:"Condimentos",prod:"Salsa de tomate envasada",gasto:350,cal:5,clima:4,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de tomate industrial. Riesgo climático heredado."},
-  {cat:"Condimentos",prod:"Mayonesa",gasto:280,cal:8,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de aceites vegetales y huevo."},
-  {cat:"Condimentos",prod:"Sal fina o gruesa",gasto:60,cal:0,clima:1,enso:1,combustible:1,logistica:1,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Producción nacional estable."},
-  {cat:"Bebidas",prod:"Café o sucedáneo",gasto:420,cal:2,clima:5,enso:5,combustible:5,logistica:5,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: El Niño afecta Colombia, Perú (productores). Importación 100%."},
-  {cat:"Bebidas",prod:"Té o hierba",gasto:310,cal:2,clima:5,enso:4,combustible:5,logistica:5,pesoCBA:1,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: El Niño 63% prob. muy intenso. Importado; cadena logística larga."},
-  {cat:"Bebidas",prod:"Bebidas gaseosas",gasto:620,cal:12,clima:2,enso:1,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Dependencia hídrica industrial; embotellado nacional."},
-  {cat:"Bebidas",prod:"Agua mineral o purificada",gasto:380,cal:0,clima:5,enso:2,combustible:2,logistica:2,pesoCBA:1,ya:true,evidencia:"alta",fuentes:["ARClim","CR2"],nota:"ARClim CI hídrico: 288 de 346 comunas bajo estrés. CR2: megasequía."},
-  {cat:"Bebidas",prod:"Jugos y néctares envasados",gasto:340,cal:8,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de frutas; hereda riesgo climático."},
-  {cat:"Comidas preparadas",prod:"Alimentos en restaurantes y similares",gasto:2800,cal:65,clima:3,enso:2,combustible:5,logistica:5,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ODEPA"],nota:"Mayor gasto en presupuesto de alimentos. Cadena compleja; múltiples ingredientes en riesgo."}
+  {cat:"Cereales",prod:"Pan corriente a granel",gasto:10239,cal:666,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["CR2","INIA","ODEPA"],nota:"Producto de mayor peso calórico en la CBA. ARClim: megasequía documentada en zona de cultivo de trigo. CR2: proyección de déficit hídrico crítico en O'Higgins-Maule. INIA: riesgo muy alto directo. Logística: distribución nacional. Combustible: maquinaria agrícola intensiva y secado industrial. El Niño ampliará anomalía en lluvias."},
+  {cat:"Cereales",prod:"Harina de trigo blanca",gasto:628,cal:79,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["CR2","INIA","ODEPA","ARClim"],nota:"CR2: megasequía Aconcagua-Maule. INIA: cultivo extremadamente sensible a déficit hídrico. ARClim: amenaza muy alta fruticultura/cereales. Derivado directo de trigo pan. Distribución nacional con combustible en molino."},
+  {cat:"Cereales",prod:"Arroz",gasto:1061,cal:115,clima:5,enso:4,combustible:3,logistica:4,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["CR2","INIA","NOAA"],nota:"NOAA 11-jun-2026: Niño 1+2 costero +2,1°C. Cultivo muy sensible a irregularidades en riego. CR2: sequía en zonas de riego central. Importado mayormente de Perú/Argentina; logística depende de transporte refrigerado."},
+  {cat:"Cereales",prod:"Espaguetis",gasto:462,cal:28,clima:5,enso:4,combustible:3,logistica:3,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["CR2","ODEPA"],nota:"Derivado directo de trigo. ARClim/CR2: mismo riesgo climático que harina. Procesado industrialmente; depende cadena de suministro de sémola."},
+  {cat:"Cereales",prod:"Otras pastas secas",gasto:528,cal:24,clima:5,enso:4,combustible:3,logistica:3,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["CR2","ODEPA"],nota:"Derivado de trigo. Riesgo climático y ENSO idéntico a pasta fresca. Baja dependencia logística (producto seco)."},
+  {cat:"Cereales",prod:"Pan especial a granel",gasto:618,cal:22,clima:5,enso:4,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["CR2","INIA"],nota:"Misma cadena de riesgo que pan corriente. Distribución local; mayor dependencia de combustible en horno."},
+  {cat:"Cereales",prod:"Pan envasado",gasto:408,cal:11,clima:5,enso:3,combustible:5,logistica:4,pesoCBA:2,ya:true,evidencia:"media",fuentes:["CR2","ODEPA"],nota:"Derivado industrial de trigo. Distribución más amplia; logística frigorífica parcial."},
+  {cat:"Cereales",prod:"Galletas no identificadas",gasto:391,cal:9,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado cereal; riesgo moderado indirecto vía trigo/maíz. Procesado; menor sensibilidad directa."},
+  {cat:"Cereales",prod:"Cereales para el desayuno",gasto:263,cal:6,clima:3,enso:3,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["INIA","NOAA"],nota:"Derivado de maíz/trigo/avena. Procesado; riesgo indirecto moderado."},
+  {cat:"Cereales",prod:"Galletas dulces con relleno",gasto:328,cal:9,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de trigo y azúcar. Producto muy procesado; riesgo climático atenuado."},
+  {cat:"Cereales",prod:"Snacks, chips y frituras de cereal",gasto:225,cal:5,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de maíz/trigo procesado; bajo riesgo relativo. Peso en canasta muy bajo."},
+  {cat:"Carnes",prod:"Trutro de pollo",gasto:2045,cal:28,clima:3,enso:2,combustible:3,logistica:4,pesoCBA:4,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"Mayor peso calórico del grupo avícola. INIA: avicultura sensible a precio de maíz importado. Cadena frigorífica extensa."},
+  {cat:"Carnes",prod:"Carne vacuno molida",gasto:1803,cal:9,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","INIA","ODEPA"],nota:"ARClim: amenaza alta ganadería extensiva en zona centro-sur. CR2: sequía reduce disponibilidad forraje. Cadena de frío y transporte intensivo."},
+  {cat:"Carnes",prod:"Otros cortes vacuno",gasto:1758,cal:14,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","ODEPA"],nota:"ARClim: ganadería extensiva amenazada por megasequía. CR2: zona productora (Aysén, Magallanes) expuesta. Logística frigorífica maximal."},
+  {cat:"Carnes",prod:"Pechuga de pollo",gasto:1407,cal:11,clima:3,enso:2,combustible:3,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo indirecto vía maíz importado. Cadena frigorífica extensa."},
+  {cat:"Carnes",prod:"Carne vacuno posta",gasto:1107,cal:6,clima:5,enso:3,combustible:5,logistica:5,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ARClim","CR2","ODEPA"],nota:"ARClim: amenaza alta. CR2: sequía en zona de producción. Transporte frigorífico intensivo."},
+  {cat:"Carnes",prod:"Cecinas fiambres no identificados",gasto:628,cal:7,clima:3,enso:1,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivados procesados de carne; riesgo atenuado por transformación."},
+  {cat:"Carnes",prod:"Carne cerdo chuleta",gasto:759,cal:7,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo indirecto vía maíz. Menor sensibilidad climática que vacuno."},
+  {cat:"Carnes",prod:"Vienesas tradicionales",gasto:267,cal:9,clima:3,enso:1,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Producto procesado; riesgo climático muy atenuado."},
+  {cat:"Pesca",prod:"Jurel en conserva",gasto:261,cal:5,clima:5,enso:5,combustible:5,logistica:4,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ARClim","IFOP","NOAA"],nota:"IFOP 2026: El Niño activo impacta surgencia en zona costera norte. NOAA: Niño 1+2 +2,1°C. ARClim: riesgo máximo pesquería. Cadena frigorífica y combustible pesquero."},
+  {cat:"Pesca",prod:"Atún en conserva",gasto:591,cal:4,clima:4,enso:4,combustible:5,logistica:5,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ARClim","IFOP","NOAA"],nota:"NOAA 11-jun: Niño 1+2 costero afecta migraciones. Importado mayormente de Ecuador; cadena fría máximal."},
+  {cat:"Lácteos y huevos",prod:"Huevos de gallina frescos",gasto:2273,cal:31,clima:3,enso:2,combustible:3,logistica:3,pesoCBA:4,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: avicultura sensible a alza de maíz importado y sequía en disponibilidad agua. Distribución rápida."},
+  {cat:"Lácteos y huevos",prod:"Leche líquida entera",gasto:1031,cal:21,clima:3,enso:4,combustible:5,logistica:5,pesoCBA:3,ya:false,evidencia:"alta",fuentes:["ARClim","INIA","NOAA"],nota:"ARClim CI lechería: riesgo hídrico zona central. NOAA: El Niño afecta disponibilidad. Cadena de frío crítica."},
+  {cat:"Lácteos y huevos",prod:"Queso gouda",gasto:1446,cal:21,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["ARClim","INIA"],nota:"ARClim CI lechería. Cadena de frío + maduración; riesgo moderado."},
+  {cat:"Lácteos y huevos",prod:"Yogur batido",gasto:1106,cal:13,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:3,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"Derivado lácteo; hereda riesgo de leche base. Cadena frigorífica."},
+  {cat:"Lácteos y huevos",prod:"Leche en polvo",gasto:614,cal:16,clima:3,enso:3,combustible:5,logistica:5,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: sequía sur afecta lechería. Importado; logística frío + transporte."},
+  {cat:"Grasas y aceites",prod:"Aceites vegetales",gasto:1564,cal:197,clima:5,enso:4,combustible:5,logistica:5,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"NOAA 11-jun: 63% prob. evento muy intenso El Niño en nov-2026. ARClim: riesgo crítico olivos y paltas zona hídrica. Máxima concentración calórica. Importación + refinación intensiva."},
+  {cat:"Grasas y aceites",prod:"Mantequillas",gasto:693,cal:20,clima:3,enso:2,combustible:4,logistica:4,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado lácteo. Cadena de frío crítica; menor sensibilidad clima que leche fresca."},
+  {cat:"Grasas y aceites",prod:"Margarinas",gasto:407,cal:11,clima:2,enso:2,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de aceites vegetales importados. Riesgo indirecto moderado."},
+  {cat:"Frutas",prod:"Paltas frescas",gasto:1647,cal:19,clima:5,enso:2,combustible:3,logistica:3,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","CR2"],nota:"ARClim CI hídrico: Petorca riesgo muy alto. CR2: megasequía documentada. Cultivo con máxima sensibilidad hídrica. Distribución nacional; bajo combustible relativo."},
+  {cat:"Frutas",prod:"Limones y limas frescos",gasto:633,cal:3,clima:5,enso:4,combustible:2,logistica:2,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"ARClim: zona productora norte extremadamente vulnerable. NOAA: El Niño reduce producción zona tropical. Distribución local."},
+  {cat:"Frutas",prod:"Plátanos frescos",gasto:891,cal:14,clima:4,enso:5,combustible:5,logistica:5,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"100% importado. NOAA: Niño 1+2 +2,1°C afecta zonas productoras Ecuador/Perú severamente. Logística marítima + transporte refrigerado."},
+  {cat:"Frutas",prod:"Manzanas frescas",gasto:420,cal:5,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","CR2"],nota:"ARClim CI fruticultura: reducción rendimiento moderada en zona centro. CR2: sequía registrada."},
+  {cat:"Frutas",prod:"Naranjas frescas",gasto:304,cal:4,clima:3,enso:4,combustible:3,logistica:3,pesoCBA:1,ya:false,evidencia:"media",fuentes:["NOAA","ODEPA"],nota:"NOAA: Niño costero afecta zona productora norte moderadamente. Bajo peso en canasta."},
+  {cat:"Verduras",prod:"Papas de guarda",gasto:1200,cal:55,clima:5,enso:5,combustible:5,logistica:4,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ARClim","INIA","ODEPA","NOAA"],nota:"ARClim CI papa: O'Higgins-Maule amenaza muy alta. NOAA: El Niño afecta disponibilidad agua riego. Cultivo fundamental; almacenaje nacional; distribución. Mayor impacto en presupuesto familiar."},
+  {cat:"Verduras",prod:"Tomates frescos",gasto:890,cal:4,clima:5,enso:4,combustible:3,logistica:2,pesoCBA:4,ya:true,evidencia:"alta",fuentes:["ARClim","ODEPA","NOAA"],nota:"ARClim CI hortalizas: amenaza alta O'Higgins. NOAA: El Niño; zona productora impactada. Distribución nacional; bajo combustible relativo."},
+  {cat:"Verduras",prod:"Cebollas frescas",gasto:420,cal:3,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","ODEPA"],nota:"ARClim: amenaza media O'Higgins. Cultivo moderadamente resiliente."},
+  {cat:"Verduras",prod:"Zanahorias frescas",gasto:350,cal:4,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["INIA","ODEPA"],nota:"INIA: riesgo moderado Maule. Cultivo relativamente resiliente a sequía."},
+  {cat:"Verduras",prod:"Porotos frescos o secos",gasto:480,cal:12,clima:3,enso:1,combustible:1,logistica:1,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ARClim","INIA"],nota:"Leguminosas más resilientes. Bajo combustible (almacenaje seco). Bajo riesgo relativo."},
+  {cat:"Verduras",prod:"Lentejas",gasto:420,cal:10,clima:2,enso:1,combustible:2,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Leguminosa importada. Bajo riesgo relativo. Oferta internacional más estable."},
+  {cat:"Verduras",prod:"Choclo fresco o congelado",gasto:380,cal:8,clima:3,enso:3,combustible:3,logistica:3,pesoCBA:2,ya:false,evidencia:"media",fuentes:["NOAA","ARClim"],nota:"NOAA: El Niño activo afecta zona productora. ARClim: riesgo moderado."},
+  {cat:"Azúcar y dulces",prod:"Azúcar blanca o rubia",gasto:520,cal:35,clima:4,enso:4,combustible:3,logistica:3,pesoCBA:3,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: 63% prob. evento muy intenso El Niño nov-2026. Caña de azúcar muy sensible a sequía e irregularidad lluvia. Importado principalmente; refinación combustible."},
+  {cat:"Azúcar y dulces",prod:"Mermeladas y jaleas",gasto:210,cal:5,clima:3,enso:2,combustible:2,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de frutas y azúcar. Riesgo muy atenuado por procesamiento. Bajo peso."},
+  {cat:"Condimentos",prod:"Salsa de tomate envasada",gasto:350,cal:5,clima:4,enso:3,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de tomate industrial. ARClim: riesgo moderado hortalizas."},
+  {cat:"Condimentos",prod:"Mayonesa",gasto:280,cal:8,clima:3,enso:2,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Derivado de aceites vegetales y huevo. Riesgo indirecto atenuado."},
+  {cat:"Condimentos",prod:"Sal fina o gruesa",gasto:60,cal:0,clima:1,enso:1,combustible:1,logistica:1,pesoCBA:1,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Producción nacional estable. Sin riesgo relevante."},
+  {cat:"Bebidas",prod:"Café o sucedáneo",gasto:420,cal:2,clima:5,enso:5,combustible:5,logistica:5,pesoCBA:2,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: El Niño afecta Colombia/Perú severamente. Cultivo extremadamente sensible a variabilidad climática. 100% importado; logística marítima."},
+  {cat:"Bebidas",prod:"Té o hierba",gasto:310,cal:2,clima:5,enso:4,combustible:5,logistica:5,pesoCBA:1,ya:true,evidencia:"alta",fuentes:["ODEPA","NOAA"],nota:"NOAA 11-jun: El Niño 63% prob. muy intenso nov-2026. Cultivos herbales sensibles sequía. Importado; logística."},
+  {cat:"Bebidas",prod:"Bebidas gaseosas",gasto:620,cal:12,clima:2,enso:1,combustible:3,logistica:2,pesoCBA:2,ya:false,evidencia:"baja",fuentes:["ODEPA"],nota:"Dependencia hídrica industrial; embotellamiento + transporte. Bajo riesgo climático relativo."},
+  {cat:"Bebidas",prod:"Agua mineral o purificada",gasto:380,cal:0,clima:5,enso:2,combustible:2,logistica:2,pesoCBA:1,ya:true,evidencia:"alta",fuentes:["ARClim","CR2"],nota:"ARClim CI hídrico: 288 de 346 municipios en riesgo. CR2: megasequía. Disponibilidad crítica."},
+  {cat:"Bebidas",prod:"Jugos y néctares envasados",gasto:340,cal:8,clima:3,enso:3,combustible:3,logistica:2,pesoCBA:1,ya:false,evidencia:"media",fuentes:["ODEPA"],nota:"Derivado de frutas; hereda riesgo moderado. Procesado; atenuado."},
+  {cat:"Comidas preparadas",prod:"Alimentos en restaurantes y similares",gasto:2800,cal:65,clima:3,enso:2,combustible:5,logistica:5,pesoCBA:5,ya:true,evidencia:"alta",fuentes:["ODEPA"],nota:"Mayor gasto mensual en canasta. Dependencia crítica combustible (cadena de frío, transporte, cocción). Agregador de riesgos de todos los productos."},
 ];
 
 const withIndex = PRODUCTOS_RAW.map(p => {
@@ -69,7 +69,7 @@ const withIndex = PRODUCTOS_RAW.map(p => {
   return {...p,indice,impacto};
 });
 
-// ─── COMPONENTES ─────────────────────────────────────────────────────────
+// ─── COMPONENTES ───────────────────────────────────────────────────────────
 function ScorePill({v}){
   return(
     <span style={{display:"inline-block",padding:"2px 8px",borderRadius:12,fontSize:12,
@@ -320,16 +320,6 @@ function Productos({search}){
   return(
     <div>
       <Leyenda/>
-      <div style={{marginBottom:12,display:"flex",gap:6,flexWrap:"wrap"}}>
-        {SCEN_OPTS.map(opt=>(
-          <button key={opt.id} onClick={()=>setScen(opt.id)}
-            style={{fontSize:11,padding:"6px 10px",border:`1px solid ${scen===opt.id?C.accent:C.border}`,
-              cursor:"pointer",background:scen===opt.id?C.accent:C.surface,
-              color:scen===opt.id?"#fff":C.text1,borderRadius:6,fontWeight:scen===opt.id?700:500}}>
-            {opt.lbl}
-          </button>
-        ))}
-      </div>
 
       {/* Tabla */}
       <div style={{border:`1px solid ${C.border}`,borderRadius:10,overflow:"auto"}}>
@@ -344,8 +334,8 @@ function Productos({search}){
           </thead>
           <tbody>
             {visible.map((p,i)=>(
-              <React.Fragment key={p.prod}>
-                <tr onClick={()=>setOpenRow(openRow===p.prod?null:p.prod)}
+              <>
+                <tr key={p.prod} onClick={()=>setOpenRow(openRow===p.prod?null:p.prod)}
                   style={{cursor:"pointer",borderBottom:`1px solid ${C.border}`,
                     background:openRow===p.prod?"#f0f6ff":i%2===0?C.surface:"#fafafa"}}>
                   <td style={{padding:"8px 10px",minWidth:160}}>
@@ -369,7 +359,7 @@ function Productos({search}){
                   </td>
                 </tr>
                 {openRow===p.prod&&(
-                  <tr style={{background:"#f0f4f8"}}>
+                  <tr key={`${p.prod}-d`} style={{background:"#f0f4f8"}}>
                     <td colSpan={8} style={{padding:"10px 14px",fontSize:11,color:C.text2,borderBottom:`1px solid ${C.border}`}}>
                       <strong>📋 Evidencia:</strong> {p.nota}<br/>
                       <strong>Fuentes:</strong> {p.fuentes.join(" · ")}
@@ -377,7 +367,7 @@ function Productos({search}){
                     </td>
                   </tr>
                 )}
-              </React.Fragment>
+              </>
             ))}
           </tbody>
         </table>
@@ -402,7 +392,7 @@ function Metodologia(){
         {dim:"Clima (40%)",desc:"Sensibilidad del cultivo o especie a sequía, aumento de temperatura y eventos extremos. Basado en ARClim (RCP8.5), alertas del INIA y proyecciones CR2.",fuentes:["ARClim","INIA","CR2"]},
         {dim:"ENSO (20%)",desc:"Sensibilidad al fenómeno El Niño/La Niña. NOAA declaró El Niño el 11-jun-2026 con índice Niño 1+2 en +2,1°C y 63% prob. de evento muy intenso en nov-2026.",fuentes:["NOAA","IFOP"]},
         {dim:"Combustibles (20%)",desc:"Dependencia energética directa de la cadena productiva y distribución. El bencinazo de marzo 2026 subió el diésel a $580/lt.",fuentes:["ODEPA","ENAP"]},
-        {dim:"Logística (20%)",desc:"Dependencia de cadena de frío, transporte de larga distancia o importaciones. Productos 100% importados o con cadenas frigoríficas extensas reciben puntajes altos.",fuentes:["ODEPA","ADUANAS"]},
+        {dim:"Logística (20%)",desc:"Dependencia de cadena de frío, transporte de larga distancia o importaciones. Productos 100% importados o con cadenas frigoríficas extensas reciben puntajes altos.",fuentes:["ODEPA","Aduanas"]},
       ].map(d=>(
         <div key={d.dim} style={{marginBottom:16,paddingBottom:16,borderBottom:`1px solid ${C.border}`}}>
           <div style={{fontWeight:700,fontSize:13,color:C.accent,marginBottom:4}}>{d.dim}</div>
